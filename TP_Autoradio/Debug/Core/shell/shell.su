@@ -1,0 +1,8 @@
+../Core/shell/shell.c:30:6:shell_uart_receive_irq_cb	16	static,ignoring_inline_asm
+../Core/shell/shell.c:39:13:uart_read	16	static
+../Core/shell/shell.c:50:12:uart_write	16	static
+../Core/shell/shell.c:55:12:sh_help	32	static
+../Core/shell/shell.c:66:6:shell_init	16	static
+../Core/shell/shell.c:82:5:shell_add	24	static
+../Core/shell/shell.c:94:12:shell_exec	72	static
+../Core/shell/shell.c:128:5:shell_run	24	static
