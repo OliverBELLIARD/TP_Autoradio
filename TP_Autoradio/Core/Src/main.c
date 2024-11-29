@@ -228,7 +228,6 @@ int main(void)
 	// Turn on LED2 (Green)
 	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	// Create the task, storing the handle.
-	/*
 	Error_Handler_xTaskCreate(
 			xTaskCreate(task_LED, // Function that implements the task.
 					"LED LD2", // Text name for the task.
@@ -236,7 +235,6 @@ int main(void)
 					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
 					1,// Priority at which the task is created.
 					&h_task_LED)); // Used to pass out the created task's handle.
-					*/
 	// Shell task
 	Error_Handler_xTaskCreate(
 			xTaskCreate(task_shell,
