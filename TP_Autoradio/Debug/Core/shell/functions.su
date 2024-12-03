@@ -1,0 +1,3 @@
+../Core/shell/functions.c:11:5:fonction	24	static
+../Core/shell/functions.c:24:5:calcul	32	static
+../Core/shell/functions.c:48:5:addition	24	static

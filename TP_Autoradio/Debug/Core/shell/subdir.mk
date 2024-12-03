@@ -5,12 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/shell/functions.c \
 ../Core/shell/shell.c 
 
 OBJS += \
+./Core/shell/functions.o \
 ./Core/shell/shell.o 
 
 C_DEPS += \
+./Core/shell/functions.d \
 ./Core/shell/shell.d 
 
 
@@ -21,7 +24,7 @@ Core/shell/%.o Core/shell/%.su Core/shell/%.cyclo: ../Core/shell/%.c Core/shell/
 clean: clean-Core-2f-shell
 
 clean-Core-2f-shell:
-	-$(RM) ./Core/shell/shell.cyclo ./Core/shell/shell.d ./Core/shell/shell.o ./Core/shell/shell.su
+	-$(RM) ./Core/shell/functions.cyclo ./Core/shell/functions.d ./Core/shell/functions.o ./Core/shell/functions.su ./Core/shell/shell.cyclo ./Core/shell/shell.d ./Core/shell/shell.o ./Core/shell/shell.su
 
 .PHONY: clean-Core-2f-shell
 

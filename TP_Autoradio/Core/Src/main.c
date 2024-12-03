@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../shell/shell.h"
+#include "../shell/functions.h"
 
 /* USER CODE END Includes */
 
@@ -42,8 +43,21 @@
 #define LOGS 1
 
 #define STACK_DEPTH 256
-#define TASK_SHELL_PRIORITY 2
+#define TASK_SHELL_PRIORITY 3
+#define TASK_MCP23S17_PRIORITY 2
 #define DELAY_LED_TOGGLE 200
+
+// VU-Metre constants
+#define VU_WRITE 0
+#define VU_READ 1
+#define MCP23S17_IODIRA 0x00
+#define MCP23S17_IODIRB 0x01
+#define MCP23S17_OLATA  0x0A
+#define MCP23S17_OLATB  0x1A
+
+// Builds the VU-Metre control byte
+#define MCP23S17_CONTROL_BYTE(adress, RW)\
+		((0b0100 << 4) | (adress & 0b111 << 1) | RW)
 
 /* USER CODE END PD */
 
@@ -57,6 +71,7 @@
 /* USER CODE BEGIN PV */
 TaskHandle_t h_task_LED = NULL;
 TaskHandle_t h_task_shell = NULL;
+TaskHandle_t h_task_GPIOExpander = NULL;
 
 /* USER CODE END PV */
 
@@ -112,58 +127,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	}
 }
 
-int fonction(int argc, char ** argv)
-{
-	if (argc > 1)
-	{
-		for (int i = 0; i < argc; i++)
-		{
-			printf("Paramètre [%d] = %s\r\n", i+1, argv[i]);
-		}
-	}
-
-	return 0;
-}
-
-int calcul(int argc, char ** argv)
-{
-	if (argc >= 4)
-	{
-		switch(argv[2][0])
-		{
-		case '+':
-			printf("%s + %s = %d\r\n", argv[1], argv[3], atoi(argv[1])+atoi(argv[3]));
-			break;
-		case '-':
-			printf("%s - %s = %d\r\n", argv[1], argv[3], atoi(argv[1])-atoi(argv[3]));
-			break;
-		case '*':
-		case 'x':
-			printf("%s * %s = %d\r\n", argv[1], argv[3], atoi(argv[1])*atoi(argv[3]));
-			break;
-		default:
-			printf("Opération '%s' non supporté!\r\n", argv[2]);
-		}
-	}
-
-	return 0;
-}
-
-int addition(int argc, char ** argv)
-{
-	if (argc > 1)
-	{
-		int somme = 0;
-		for (int i = 1; i < argc; i++)
-		{
-			printf(" + %s", argv[i]);
-			somme = somme + atoi(argv[i]);
-		}
-
-		printf(" = %d\r\n", somme);
-	}
-	return 0;
-}
 
 void task_LED (void * pvParameters) {
 	int duree = (int) pvParameters;
@@ -192,6 +155,78 @@ void task_shell(void * unused)
 	shell_add('c', calcul, "Opération entre 2 nombres");
 
 	shell_run();	// boucle infinie
+}
+
+// Function to write to a register of MCP23S17 with error handling
+void MCP23S17_WriteRegister(uint8_t reg, uint8_t data) {
+	uint8_t control_byte = MCP23S17_CONTROL_BYTE(0b000, VU_WRITE); // Address = 0b000
+
+	uint8_t buffer[2] = {reg, data};
+	HAL_StatusTypeDef status;
+
+	// Assert chip select
+	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_RESET);
+
+	// Transmit control byte
+	status = HAL_SPI_Transmit(&hspi3, &control_byte, 1, HAL_MAX_DELAY);
+	if (status != HAL_OK) {
+		HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET); // Deassert chip select
+		printf("Error: Failed to transmit control byte (HAL_SPI_Transmit returned %d)\r\n", status);
+		Error_Handler(); // Handle the error
+		return; // Prevent further execution
+	}
+
+#if (LOGS)
+	printf("SPI3 control transmission status: %d\r\n", status);
+#endif
+
+	// Transmit register address and data
+	status = HAL_SPI_Transmit(&hspi3, buffer, 2, HAL_MAX_DELAY);
+	if (status != HAL_OK) {
+		HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET); // Deassert chip select
+		printf("Error: Failed to transmit register data (HAL_SPI_Transmit returned %d)\r\n", status);
+		Error_Handler(); // Handle the error
+		return; // Prevent further execution
+	}
+
+#if (LOGS)
+	printf("SPI3 data Ox%X transmission status: %d\r\n", data, status);
+#endif
+
+	// Deassert chip select
+	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
+}
+
+void Init_GPIO_Expander(void) {
+	// nRESET to base state
+	HAL_GPIO_WritePin(VU_nRESET_GPIO_Port, VU_nRESET_Pin, GPIO_PIN_SET);
+
+	// nCS to reset state
+	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
+
+	// Set all GPIOA and GPIOB pins as outputs
+	MCP23S17_WriteRegister(MCP23S17_IODIRA, 0x00); // GPA as output
+	MCP23S17_WriteRegister(MCP23S17_IODIRB, 0x00); // GPB as output
+
+	// Set all GPIOA and GPIOB pins to HIGH to turn on LEDs
+	MCP23S17_WriteRegister(MCP23S17_OLATA, 0xFF); // All LEDs on GPIOA ON
+	MCP23S17_WriteRegister(MCP23S17_OLATB, 0xFF); // All LEDs on GPIOB ON
+}
+
+void task_GPIO_expander (void * pvParameters) {
+	int duree = (int) pvParameters;
+
+#if (LOGS)
+	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+#endif
+
+	// Initialize MCP23S17 GPIO expander
+	Init_GPIO_Expander();
+
+	for (;;)
+	{
+		vTaskDelay( duree / portTICK_PERIOD_MS );  // Délai de duree en ms
+	}
 }
 
 /* USER CODE END 0 */
@@ -232,8 +267,23 @@ int main(void)
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");
 
+	// SPI3 GPIO expander test
+	printf("******* MCP23S17 SPI GPIO Expander Test *******\r\n");
+
+	HAL_SPI_Init(&hspi3);
+
+	// Create the task, storing the handle.
+	Error_Handler_xTaskCreate(
+			xTaskCreate(task_GPIO_expander, // Function that implements the task.
+					"GPIO_expander", // Text name for the task.
+					STACK_DEPTH, // Stack size in words, not bytes.
+					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
+					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
+					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
+
 	// Turn on LED2 (Green)
 	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
 	// Create the task, storing the handle.
 	Error_Handler_xTaskCreate(
 			xTaskCreate(task_LED, // Function that implements the task.
