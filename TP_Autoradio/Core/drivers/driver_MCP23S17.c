@@ -57,8 +57,8 @@ void MCP23S17_WriteRegister(uint8_t reg, uint8_t data)
 
 void MCP23S17_Update_LEDs()
 {
-	MCP23S17_WriteRegister(MCP23S17_OLATA, hMCP23S17.GPA); // All LEDs on GPIOA OFF
-	MCP23S17_WriteRegister(MCP23S17_OLATB, hMCP23S17.GPB); // All LEDs on GPIOB OFF
+	MCP23S17_WriteRegister(MCP23S17_OLATA, hMCP23S17.GPA);
+	MCP23S17_WriteRegister(MCP23S17_OLATB, hMCP23S17.GPB);
 }
 
 void MCP23S17_Init(void)
@@ -101,11 +101,11 @@ void MCP23S17_Toggle_LED_id(uint8_t led)
 {
 	if (led > 7)
 	{
-		hMCP23S17.GPB = (hMCP23S17.GPB & ~(1 << led%8)) | ~(hMCP23S17.GPB);
+		hMCP23S17.GPB = (hMCP23S17.GPB & ~(1 << led%8)) | (~hMCP23S17.GPB & (1 << led%8));
 	}
 	else
 	{
-		hMCP23S17.GPA = (hMCP23S17.GPA & ~(1 << led)) | ~(hMCP23S17.GPA);
+		hMCP23S17.GPA = (hMCP23S17.GPA & ~(1 << led)) | (~hMCP23S17.GPA & (1 << led));
 	}
 
 	MCP23S17_Update_LEDs();
@@ -115,6 +115,26 @@ void MCP23S17_Set_LEDs(uint16_t leds)
 {
 	hMCP23S17.GPB = (0xFF00 & leds) >> 8;
 	hMCP23S17.GPA = 0xFF & leds;
+
+	MCP23S17_Update_LEDs();
+}
+
+/*
+ * @param level in percentage
+ */
+void MCP23S17_VUMetre_R(int level)
+{
+	hMCP23S17.GPA = 0xFF & (0x00FF << (int)(8*level/100));
+
+	MCP23S17_Update_LEDs();
+}
+
+/*
+ * @param level in percentage
+ */
+void MCP23S17_VUMetre_L(int level)
+{
+	hMCP23S17.GPB = 0xFF & (0x00FF << (int)(8*level/100));
 
 	MCP23S17_Update_LEDs();
 }

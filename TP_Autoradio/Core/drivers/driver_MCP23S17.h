@@ -36,5 +36,7 @@ void MCP23S17_Init();
 void MCP23S17_Set_LED_id(uint8_t);
 void MCP23S17_Toggle_LED_id(uint8_t);
 void MCP23S17_Set_LEDs(uint16_t);
+void MCP23S17_VUMetre_R(int);
+void MCP23S17_VUMetre_L(int);
 
 #endif /* DRIVERS_DRIVER_MCP23S17_H_ */

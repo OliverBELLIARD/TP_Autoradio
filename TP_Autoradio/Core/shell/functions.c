@@ -5,6 +5,8 @@
  *      Author: oliver
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "functions.h"
 #include "../drivers/driver_MCP23S17.h"
 
@@ -66,7 +68,10 @@ int GPIOExpander_toggle_LED(int argc, char ** argv)
 {
 	if (argc > 1)
 	{
-		MCP23S17_Toggle_LED_id(atoi(argv[1]));
+		for (int i = 1; i < argc; i++)
+		{
+			MCP23S17_Toggle_LED_id(atoi(argv[i]));
+		}
 	}
 
 	return 0;

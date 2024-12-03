@@ -160,8 +160,7 @@ void test_chenillard(int delay)
 	}
 }
 
-void task_GPIO_expander (void * pvParameters) {
-	int delay = (int) pvParameters;
+void task_GPIO_expander (void * unused) {
 
 #if (LOGS)
 	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
@@ -170,12 +169,17 @@ void task_GPIO_expander (void * pvParameters) {
 	// Initialize MCP23S17 GPIO expander
 	MCP23S17_Init();
 
+	/* VU-Metre test
+	MCP23S17_VUMetre_R(50);
+	MCP23S17_VUMetre_L(30);
+	*/
+
 	// Simple test of the array of leds with an animation
-	//test_chenillard(delay);
+	//test_chenillard(100);
 
 	for (;;)
 	{
-		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
+		vTaskDelay(1);  // Délai de duree en ms
 	}
 }
 
