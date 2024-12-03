@@ -124,9 +124,12 @@ void MCP23S17_Set_LEDs(uint16_t leds)
  */
 void MCP23S17_VUMetre_R(int level)
 {
-	hMCP23S17.GPA = 0xFF & (0x00FF << (int)(8*level/100));
+	if (level <= 100)
+	{
+		hMCP23S17.GPA = 0xFF & (0x00FF << (int)(8*level/100));
 
-	MCP23S17_Update_LEDs();
+		MCP23S17_Update_LEDs();
+	}
 }
 
 /*
@@ -134,7 +137,10 @@ void MCP23S17_VUMetre_R(int level)
  */
 void MCP23S17_VUMetre_L(int level)
 {
-	hMCP23S17.GPB = 0xFF & (0x00FF << (int)(8*level/100));
+	if (level <= 100)
+	{
+		hMCP23S17.GPB = 0xFF & (0x00FF << (int)(8*level/100));
 
-	MCP23S17_Update_LEDs();
+		MCP23S17_Update_LEDs();
+	}
 }
