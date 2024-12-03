@@ -2,7 +2,7 @@
 ../Core/shell/shell.c:36:13:uart_read	16	static
 ../Core/shell/shell.c:47:12:uart_write	16	static
 ../Core/shell/shell.c:52:12:sh_help	32	static
-../Core/shell/shell.c:63:6:shell_init	16	static
-../Core/shell/shell.c:79:5:shell_add	24	static
-../Core/shell/shell.c:91:12:shell_exec	72	static
-../Core/shell/shell.c:125:5:shell_run	24	static
+../Core/shell/shell.c:64:6:shell_init	16	static
+../Core/shell/shell.c:80:5:shell_add	24	static
+../Core/shell/shell.c:92:12:shell_exec	72	static
+../Core/shell/shell.c:126:5:shell_run	24	static

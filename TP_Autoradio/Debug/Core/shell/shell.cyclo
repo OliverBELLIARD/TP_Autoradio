@@ -2,7 +2,7 @@
 ../Core/shell/shell.c:36:13:uart_read	1
 ../Core/shell/shell.c:47:12:uart_write	1
 ../Core/shell/shell.c:52:12:sh_help	2
-../Core/shell/shell.c:63:6:shell_init	2
-../Core/shell/shell.c:79:5:shell_add	2
-../Core/shell/shell.c:91:12:shell_exec	6
-../Core/shell/shell.c:125:5:shell_run	6
+../Core/shell/shell.c:64:6:shell_init	2
+../Core/shell/shell.c:80:5:shell_add	2
+../Core/shell/shell.c:92:12:shell_exec	6
+../Core/shell/shell.c:126:5:shell_run	6

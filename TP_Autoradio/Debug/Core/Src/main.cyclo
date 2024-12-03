@@ -4,7 +4,8 @@
 ../Core/Src/main.c:111:6:HAL_UART_RxCpltCallback	2
 ../Core/Src/main.c:120:6:task_LED	1
 ../Core/Src/main.c:133:6:task_shell	1
-../Core/Src/main.c:150:6:task_GPIO_expander	1
-../Core/Src/main.c:199:5:main	1
-../Core/Src/main.c:290:6:SystemClock_Config	4
-../Core/Src/main.c:343:6:Error_Handler	1
+../Core/Src/main.c:150:6:test_chenillard	1
+../Core/Src/main.c:163:6:task_GPIO_expander	1
+../Core/Src/main.c:188:5:main	1
+../Core/Src/main.c:279:6:SystemClock_Config	4
+../Core/Src/main.c:332:6:Error_Handler	1

@@ -56,6 +56,7 @@ static int sh_help(int argc, char ** argv) {
 		size = snprintf (print_buffer, BUFFER_SIZE, "%c: %s\r\n", shell_func_list[i].c, shell_func_list[i].description);
 		uart_write(print_buffer, size);
 	}
+	uart_write("\r\n", 2);
 
 	return 0;
 }

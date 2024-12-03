@@ -147,10 +147,21 @@ void task_shell(void * unused)
 	shell_run();	// boucle infinie
 }
 
+void test_chenillard(int delay)
+{
+	int i = 0;
+
+	for (;;)
+	{
+		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
+		i++;
+
+		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
+	}
+}
+
 void task_GPIO_expander (void * pvParameters) {
 	int delay = (int) pvParameters;
-	int toggle = 1;
-	int i = 0;
 
 #if (LOGS)
 	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
@@ -159,35 +170,13 @@ void task_GPIO_expander (void * pvParameters) {
 	// Initialize MCP23S17 GPIO expander
 	MCP23S17_Init();
 
-	/* Test chenillard */
+	// Simple test of the array of leds with an animation
+	//test_chenillard(delay);
+
 	for (;;)
 	{
-		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
-		i++;
-
 		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
 	}
-
-	/* Test all LEDs at once
-	for (;;)
-	{
-
-		if (toggle > 0)
-		{
-			MCP23S17_WriteRegister(MCP23S17_OLATA, 0xFF); // All LEDs on GPIOA ON
-			MCP23S17_WriteRegister(MCP23S17_OLATB, 0x00); // All LEDs on GPIOB OFF
-		}
-		else
-		{
-			MCP23S17_WriteRegister(MCP23S17_OLATA, 0x00); // All LEDs on GPIOA OFF
-			MCP23S17_WriteRegister(MCP23S17_OLATB, 0xFF); // All LEDs on GPIOB ON
-		}
-
-		toggle = -toggle;
-
-		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
-	}
-	*/
 }
 
 /* USER CODE END 0 */
