@@ -1,8 +1,8 @@
 ../Core/drivers/driver_MCP23S17.c:18:6:MCP23S17_WriteRegister	24	static
 ../Core/drivers/driver_MCP23S17.c:58:6:MCP23S17_Update_LEDs	8	static
 ../Core/drivers/driver_MCP23S17.c:64:6:MCP23S17_Init	8	static
-../Core/drivers/driver_MCP23S17.c:84:6:MCP23S17_Set_LED_id	16	static
-../Core/drivers/driver_MCP23S17.c:100:6:MCP23S17_Toggle_LED_id	16	static
-../Core/drivers/driver_MCP23S17.c:114:6:MCP23S17_Set_LEDs	16	static
-../Core/drivers/driver_MCP23S17.c:125:6:MCP23S17_VUMetre_R	16	static
-../Core/drivers/driver_MCP23S17.c:135:6:MCP23S17_VUMetre_L	16	static
+../Core/drivers/driver_MCP23S17.c:86:6:MCP23S17_Set_LED_id	16	static
+../Core/drivers/driver_MCP23S17.c:102:6:MCP23S17_Toggle_LED_id	16	static
+../Core/drivers/driver_MCP23S17.c:116:6:MCP23S17_Set_LEDs	16	static
+../Core/drivers/driver_MCP23S17.c:127:6:MCP23S17_VUMetre_R	16	static
+../Core/drivers/driver_MCP23S17.c:140:6:MCP23S17_VUMetre_L	16	static

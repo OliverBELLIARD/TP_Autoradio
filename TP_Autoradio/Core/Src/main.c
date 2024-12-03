@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "dma.h"
 #include "i2c.h"
 #include "sai.h"
 #include "spi.h"
@@ -48,6 +49,9 @@
 #define TASK_SHELL_PRIORITY 3
 #define TASK_MCP23S17_PRIORITY 2
 #define DELAY_LED_TOGGLE 200
+
+#define SGTL5000_CHIP_ID 0x0000
+#define SGTL5000_CODEC 0x14
 
 /* USER CODE END PD */
 
@@ -158,7 +162,7 @@ void test_chenillard(int delay)
 		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
 		i++;
 
-		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
+		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en Dms
 	}
 }
 
@@ -171,9 +175,9 @@ void task_GPIO_expander (void * unused) {
 	// Initialize MCP23S17 GPIO expander
 	MCP23S17_Init();
 
-	/* VU-Metre test
-	MCP23S17_VUMetre_R(50);
+	/* VU-Metre test *
 	MCP23S17_VUMetre_L(30);
+	MCP23S17_VUMetre_R(50);
 	*/
 
 	// Simple test of the array of leds with an animation
@@ -219,12 +223,24 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_I2C2_Init();
   MX_SPI3_Init();
   MX_SAI2_Init();
   /* USER CODE BEGIN 2 */
-	HAL_SPI_Init(&hspi3);
+	__HAL_SAI_ENABLE(&hsai_BlockA2);
+
+	uint8_t pData[16];
+	printf("Before I2C\r\n");
+	for (int i = 0; i < 16; i++)
+			printf("0x%X\r\n", pData[i]);
+	HAL_I2C_Mem_Read(&hi2c2, SGTL5000_CODEC, SGTL5000_CHIP_ID, 1, pData, 16, HAL_MAX_DELAY);
+	printf("After I2C\r\n");
+	for (int i = 0; i < 16; i++)
+		printf("0x%X\r\n", pData[i]);
+	//HAL_SAI_Receive_DMA();
+	//HAL_SAI_Transmit_DMA();
 
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");
@@ -234,7 +250,7 @@ int main(void)
 			xTaskCreate(task_GPIO_expander, // Function that implements the task.
 					"GPIO_expander", // Text name for the task.
 					STACK_DEPTH, // Stack size in words, not bytes.
-					(void *) 500, // 1 ms
+					(void *) 500, // 500 ms
 					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
 					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
 
@@ -345,8 +361,8 @@ void PeriphCommonClock_Config(void)
   PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLSAI1;
   PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSI;
   PeriphClkInit.PLLSAI1.PLLSAI1M = 1;
-  PeriphClkInit.PLLSAI1.PLLSAI1N = 8;
-  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV7;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 13;
+  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV17;
   PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV2;
   PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV2;
   PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_SAI1CLK;
@@ -359,6 +375,27 @@ void PeriphCommonClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

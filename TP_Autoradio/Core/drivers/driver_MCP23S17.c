@@ -9,9 +9,9 @@ typedef struct {
 	SPI_HandleTypeDef* hspi;
 	uint8_t GPA;	// LED array in GPIOA
 	uint8_t GPB;	// LED array in GPIOB
-} MCP23S17_handler;
+} h_MCP23S17_t;
 
-MCP23S17_handler hMCP23S17;
+h_MCP23S17_t hMCP23S17;
 
 
 // Function to write to a register of MCP23S17 with error handling
@@ -64,6 +64,8 @@ void MCP23S17_Update_LEDs()
 void MCP23S17_Init(void)
 {
 	hMCP23S17.hspi = &hspi3;
+
+	HAL_SPI_Init(hMCP23S17.hspi);
 
 	// nRESET to base state
 	HAL_GPIO_WritePin(VU_nRESET_GPIO_Port, VU_nRESET_Pin, GPIO_PIN_SET);
