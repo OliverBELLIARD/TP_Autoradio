@@ -5,8 +5,9 @@
 ../Core/Src/main.c:131:6:task_LED	1
 ../Core/Src/main.c:144:6:task_shell	1
 ../Core/Src/main.c:161:6:MCP23S17_WriteRegister	3
-../Core/Src/main.c:200:6:Init_GPIO_Expander	1
-../Core/Src/main.c:216:6:task_GPIO_expander	1
-../Core/Src/main.c:238:5:main	1
-../Core/Src/main.c:332:6:SystemClock_Config	4
-../Core/Src/main.c:385:6:Error_Handler	1
+../Core/Src/main.c:200:6:MCP23S17_Init	1
+../Core/Src/main.c:212:6:MCP23S17_Set_LED	2
+../Core/Src/main.c:226:6:task_GPIO_expander	1
+../Core/Src/main.c:270:5:main	1
+../Core/Src/main.c:361:6:SystemClock_Config	4
+../Core/Src/main.c:414:6:Error_Handler	1
