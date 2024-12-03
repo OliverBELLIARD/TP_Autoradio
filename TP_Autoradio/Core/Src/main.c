@@ -142,6 +142,7 @@ void task_shell(void * unused)
 	shell_add('f', fonction, "Une fonction inutile");
 	shell_add('a', addition, "Effectue une somme");
 	shell_add('c', calcul, "Opération entre 2 nombres");
+	shell_add('t', GPIOExpander_toggle_LED, "Change l'état d'une LED avec son id");
 
 	shell_run();	// boucle infinie
 }
@@ -158,9 +159,7 @@ void task_GPIO_expander (void * pvParameters) {
 	// Initialize MCP23S17 GPIO expander
 	MCP23S17_Init();
 
-	MCP23S17_Toggle_LED_id(5);
-	MCP23S17_Toggle_LED_id(5);
-	/* Test chenillard
+	/* Test chenillard */
 	for (;;)
 	{
 		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
@@ -168,7 +167,6 @@ void task_GPIO_expander (void * pvParameters) {
 
 		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
 	}
-	*/
 
 	/* Test all LEDs at once
 	for (;;)

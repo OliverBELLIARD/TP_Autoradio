@@ -11,5 +11,6 @@
 int fonction(int, char **);
 int calcul(int, char **);
 int addition(int, char **);
+int GPIOExpander_toggle_LED(int, char **);
 
 #endif /* SHELL_FUNCTIONS_H_ */

@@ -5,17 +5,18 @@
 
 #define LOGS 0
 
-typedef struct{
+typedef struct {
 	SPI_HandleTypeDef* hspi;
-	uint8_t GPA;
-	uint8_t GPB;
+	uint8_t GPA;	// LED array in GPIOA
+	uint8_t GPB;	// LED array in GPIOB
 } MCP23S17_handler;
 
 MCP23S17_handler hMCP23S17;
 
 
 // Function to write to a register of MCP23S17 with error handling
-void MCP23S17_WriteRegister(uint8_t reg, uint8_t data) {
+void MCP23S17_WriteRegister(uint8_t reg, uint8_t data)
+{
 	uint8_t control_byte = MCP23S17_CONTROL_BYTE(MCP23S17_CONTROL_ADDR, VU_WRITE); // Address = 0b000
 
 	uint8_t buffer[2] = {reg, data};
@@ -54,12 +55,14 @@ void MCP23S17_WriteRegister(uint8_t reg, uint8_t data) {
 	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
 }
 
-void MCP23S17_Update_LEDs() {
+void MCP23S17_Update_LEDs()
+{
 	MCP23S17_WriteRegister(MCP23S17_OLATA, hMCP23S17.GPA); // All LEDs on GPIOA OFF
 	MCP23S17_WriteRegister(MCP23S17_OLATB, hMCP23S17.GPB); // All LEDs on GPIOB OFF
 }
 
-void MCP23S17_Init(void) {
+void MCP23S17_Init(void)
+{
 	hMCP23S17.hspi = &hspi3;
 
 	// nRESET to base state
@@ -98,11 +101,11 @@ void MCP23S17_Toggle_LED_id(uint8_t led)
 {
 	if (led > 7)
 	{
-		hMCP23S17.GPB &= ~(1 << led%8) | ~(hMCP23S17.GPB & (1 << led%8));
+		hMCP23S17.GPB = (hMCP23S17.GPB & ~(1 << led%8)) | ~(hMCP23S17.GPB);
 	}
 	else
 	{
-		hMCP23S17.GPA &= ~(1 << led) | ~(hMCP23S17.GPA & (1 << led));
+		hMCP23S17.GPA = (hMCP23S17.GPA & ~(1 << led)) | ~(hMCP23S17.GPA);
 	}
 
 	MCP23S17_Update_LEDs();

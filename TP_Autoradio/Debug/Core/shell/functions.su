@@ -1,3 +1,4 @@
-../Core/shell/functions.c:11:5:fonction	24	static
-../Core/shell/functions.c:24:5:calcul	32	static
-../Core/shell/functions.c:48:5:addition	24	static
+../Core/shell/functions.c:12:5:fonction	24	static
+../Core/shell/functions.c:25:5:calcul	32	static
+../Core/shell/functions.c:49:5:addition	24	static
+../Core/shell/functions.c:65:5:GPIOExpander_toggle_LED	16	static

@@ -6,6 +6,7 @@
  */
 
 #include "functions.h"
+#include "../drivers/driver_MCP23S17.h"
 
 
 int fonction(int argc, char ** argv)
@@ -58,5 +59,15 @@ int addition(int argc, char ** argv)
 
 		printf(" = %d\r\n", somme);
 	}
+	return 0;
+}
+
+int GPIOExpander_toggle_LED(int argc, char ** argv)
+{
+	if (argc > 1)
+	{
+		MCP23S17_Toggle_LED_id(atoi(argv[1]));
+	}
+
 	return 0;
 }
