@@ -795,96 +795,6 @@ Discarded input sections
  .text          0x00000000       0x14 ./Core/Startup/startup_stm32l476rgtx.o
  .data          0x00000000        0x0 ./Core/Startup/startup_stm32l476rgtx.o
  .bss           0x00000000        0x0 ./Core/Startup/startup_stm32l476rgtx.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .group         0x00000000        0xc ./Core/shell/drv_uart2.o
- .text          0x00000000        0x0 ./Core/shell/drv_uart2.o
- .data          0x00000000        0x0 ./Core/shell/drv_uart2.o
- .bss           0x00000000        0x0 ./Core/shell/drv_uart2.o
- .text.drv_uart2_receive
-                0x00000000       0x28 ./Core/shell/drv_uart2.o
- .text.drv_uart2_transmit
-                0x00000000       0x28 ./Core/shell/drv_uart2.o
- .debug_info    0x00000000      0x769 ./Core/shell/drv_uart2.o
- .debug_abbrev  0x00000000      0x15e ./Core/shell/drv_uart2.o
- .debug_aranges
-                0x00000000       0x28 ./Core/shell/drv_uart2.o
- .debug_rnglists
-                0x00000000       0x19 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x1d9 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0xab4 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x22 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x8e ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x51 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x103 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x6a ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x1df ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x1a1 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x2e ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x28 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x1c ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x22 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0xfb ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000     0x1011 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x11f ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000    0x1a17a ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x6d ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000     0x38fb ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x189 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x5c ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000     0x159e ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x5a5 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x1b9 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x18b ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x26b ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x23d ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x241 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x37c ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0xd6 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x122 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x3ef ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x5cf ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x44 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000      0x330 ./Core/shell/drv_uart2.o
- .debug_macro   0x00000000       0x58 ./Core/shell/drv_uart2.o
- .debug_line    0x00000000      0x6b5 ./Core/shell/drv_uart2.o
- .debug_str     0x00000000    0xe121c ./Core/shell/drv_uart2.o
- .comment       0x00000000       0x44 ./Core/shell/drv_uart2.o
- .debug_frame   0x00000000       0x58 ./Core/shell/drv_uart2.o
- .ARM.attributes
-                0x00000000       0x34 ./Core/shell/drv_uart2.o
  .group         0x00000000        0xc ./Core/shell/shell.o
  .group         0x00000000        0xc ./Core/shell/shell.o
  .group         0x00000000        0xc ./Core/shell/shell.o
@@ -958,31 +868,13 @@ Discarded input sections
  .bss           0x00000000        0x0 ./Core/shell/shell.o
  .debug_macro   0x00000000      0xab4 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x22 ./Core/shell/shell.o
- .debug_macro   0x00000000       0x8e ./Core/shell/shell.o
- .debug_macro   0x00000000       0x51 ./Core/shell/shell.o
- .debug_macro   0x00000000      0x103 ./Core/shell/shell.o
- .debug_macro   0x00000000       0x6a ./Core/shell/shell.o
- .debug_macro   0x00000000      0x1df ./Core/shell/shell.o
- .debug_macro   0x00000000      0x189 ./Core/shell/shell.o
- .debug_macro   0x00000000       0xe4 ./Core/shell/shell.o
- .debug_macro   0x00000000      0x15a ./Core/shell/shell.o
- .debug_macro   0x00000000       0xde ./Core/shell/shell.o
- .debug_macro   0x00000000       0x1c ./Core/shell/shell.o
- .debug_macro   0x00000000       0x26 ./Core/shell/shell.o
- .debug_macro   0x00000000      0x504 ./Core/shell/shell.o
- .debug_macro   0x00000000       0xb5 ./Core/shell/shell.o
- .debug_macro   0x00000000       0xaa ./Core/shell/shell.o
- .debug_macro   0x00000000       0x91 ./Core/shell/shell.o
- .debug_macro   0x00000000       0x8d ./Core/shell/shell.o
- .debug_macro   0x00000000       0x7e ./Core/shell/shell.o
- .debug_macro   0x00000000       0x19 ./Core/shell/shell.o
- .debug_macro   0x00000000       0xf2 ./Core/shell/shell.o
- .debug_macro   0x00000000       0x61 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x5b ./Core/shell/shell.o
  .debug_macro   0x00000000       0x2a ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x94 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x43 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x34 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x16 ./Core/shell/shell.o
- .debug_macro   0x00000000       0x35 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x57 ./Core/shell/shell.o
  .debug_macro   0x00000000      0x369 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x10 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x16 ./Core/shell/shell.o
@@ -996,6 +888,22 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x16 ./Core/shell/shell.o
  .debug_macro   0x00000000      0x146 ./Core/shell/shell.o
+ .debug_macro   0x00000000      0x103 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x6a ./Core/shell/shell.o
+ .debug_macro   0x00000000      0x1df ./Core/shell/shell.o
+ .debug_macro   0x00000000       0xe4 ./Core/shell/shell.o
+ .debug_macro   0x00000000      0x15a ./Core/shell/shell.o
+ .debug_macro   0x00000000       0xde ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x1c ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x26 ./Core/shell/shell.o
+ .debug_macro   0x00000000      0x504 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0xb5 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0xaa ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x91 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x8d ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x7e ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x19 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0xf2 ./Core/shell/shell.o
  .debug_macro   0x00000000      0x1a1 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x2e ./Core/shell/shell.o
  .debug_macro   0x00000000       0x28 ./Core/shell/shell.o
@@ -1022,6 +930,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x44 ./Core/shell/shell.o
  .debug_macro   0x00000000      0x330 ./Core/shell/shell.o
  .debug_macro   0x00000000       0x58 ./Core/shell/shell.o
+ .debug_macro   0x00000000       0x22 ./Core/shell/shell.o
  .group         0x00000000        0xc ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .group         0x00000000        0xc ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .group         0x00000000        0xc ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
@@ -4030,7 +3939,6 @@ LOAD ./Core/Src/sysmem.o
 LOAD ./Core/Src/system_stm32l4xx.o
 LOAD ./Core/Src/usart.o
 LOAD ./Core/Startup/startup_stm32l476rgtx.o
-LOAD ./Core/shell/drv_uart2.o
 LOAD ./Core/shell/shell.o
 LOAD ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
 LOAD ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
@@ -5344,7 +5252,7 @@ LOAD /home/oliver/st/stm32cubeide_1.16.0/plugins/com.st.stm32cube.ide.mcu.extern
  .debug_rnglists
                 0x00000cb9       0x42 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
-.debug_macro    0x00000000    0x28fa3
+.debug_macro    0x00000000    0x29124
  .debug_macro   0x00000000      0x26e ./Core/Src/freertos.o
  .debug_macro   0x0000026e      0xab4 ./Core/Src/freertos.o
  .debug_macro   0x00000d22      0x189 ./Core/Src/freertos.o
@@ -5451,32 +5359,33 @@ LOAD /home/oliver/st/stm32cubeide_1.16.0/plugins/com.st.stm32cube.ide.mcu.extern
  .debug_macro   0x000268d5      0x23c ./Core/Src/sysmem.o
  .debug_macro   0x00026b11      0x1ac ./Core/Src/system_stm32l4xx.o
  .debug_macro   0x00026cbd      0x1c5 ./Core/Src/usart.o
- .debug_macro   0x00026e82      0x369 ./Core/shell/shell.o
- .debug_macro   0x000271eb       0x1c ./Core/shell/shell.o
- .debug_macro   0x00027207       0x56 ./Core/shell/shell.o
- .debug_macro   0x0002725d      0x1fa ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
- .debug_macro   0x00027457      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
- .debug_macro   0x00027603      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
- .debug_macro   0x000277af      0x1b3 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
- .debug_macro   0x00027962      0x1d0 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
- .debug_macro   0x00027b32      0x1ee ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
- .debug_macro   0x00027d20      0x1e2 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o
- .debug_macro   0x00027f02      0x1d7 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.o
- .debug_macro   0x000280d9      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.o
- .debug_macro   0x00028285      0x1fe ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
- .debug_macro   0x00028483       0x10 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
- .debug_macro   0x00028493       0x20 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
- .debug_macro   0x000284b3       0xe9 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
- .debug_macro   0x0002859c      0x187 ./Middlewares/Third_Party/FreeRTOS/Source/list.o
- .debug_macro   0x00028723      0x216 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
- .debug_macro   0x00028939       0x16 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
- .debug_macro   0x0002894f       0x87 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
- .debug_macro   0x000289d6      0x279 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_macro   0x00028c4f       0x10 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_macro   0x00028c5f      0x196 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- .debug_macro   0x00028df5      0x1ae ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+ .debug_macro   0x00026e82      0x35d ./Core/shell/shell.o
+ .debug_macro   0x000271df       0x9e ./Core/shell/shell.o
+ .debug_macro   0x0002727d      0x10b ./Core/shell/shell.o
+ .debug_macro   0x00027388       0x56 ./Core/shell/shell.o
+ .debug_macro   0x000273de      0x1fa ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+ .debug_macro   0x000275d8      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
+ .debug_macro   0x00027784      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
+ .debug_macro   0x00027930      0x1b3 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
+ .debug_macro   0x00027ae3      0x1d0 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
+ .debug_macro   0x00027cb3      0x1ee ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
+ .debug_macro   0x00027ea1      0x1e2 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o
+ .debug_macro   0x00028083      0x1d7 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.o
+ .debug_macro   0x0002825a      0x1ac ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.o
+ .debug_macro   0x00028406      0x1fe ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_macro   0x00028604       0x10 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_macro   0x00028614       0x20 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_macro   0x00028634       0xe9 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_macro   0x0002871d      0x187 ./Middlewares/Third_Party/FreeRTOS/Source/list.o
+ .debug_macro   0x000288a4      0x216 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
+ .debug_macro   0x00028aba       0x16 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
+ .debug_macro   0x00028ad0       0x87 ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
+ .debug_macro   0x00028b57      0x279 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .debug_macro   0x00028dd0       0x10 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .debug_macro   0x00028de0      0x196 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_macro   0x00028f76      0x1ae ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
-.debug_line     0x00000000    0x141c2
+.debug_line     0x00000000    0x141c1
  .debug_line    0x00000000      0x82d ./Core/Src/freertos.o
  .debug_line    0x0000082d      0x695 ./Core/Src/gpio.o
  .debug_line    0x00000ec2      0xc35 ./Core/Src/main.o
@@ -5487,22 +5396,22 @@ LOAD /home/oliver/st/stm32cubeide_1.16.0/plugins/com.st.stm32cube.ide.mcu.extern
  .debug_line    0x0000368a      0x716 ./Core/Src/system_stm32l4xx.o
  .debug_line    0x00003da0      0x700 ./Core/Src/usart.o
  .debug_line    0x000044a0       0x7a ./Core/Startup/startup_stm32l476rgtx.o
- .debug_line    0x0000451a      0xb30 ./Core/shell/shell.o
- .debug_line    0x0000504a      0xa72 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
- .debug_line    0x00005abc      0xc3a ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
- .debug_line    0x000066f6      0xc76 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
- .debug_line    0x0000736c      0xafd ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
- .debug_line    0x00007e69      0xc63 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
- .debug_line    0x00008acc      0xeea ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
- .debug_line    0x000099b6     0x145c ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o
- .debug_line    0x0000ae12     0x3183 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.o
- .debug_line    0x0000df95      0xb77 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.o
- .debug_line    0x0000eb0c     0x11b9 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
- .debug_line    0x0000fcc5      0x6e9 ./Middlewares/Third_Party/FreeRTOS/Source/list.o
- .debug_line    0x000103ae     0x146a ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
- .debug_line    0x00011818     0x1900 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_line    0x00013118      0x796 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- .debug_line    0x000138ae      0x914 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+ .debug_line    0x0000451a      0xb2f ./Core/shell/shell.o
+ .debug_line    0x00005049      0xa72 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+ .debug_line    0x00005abb      0xc3a ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
+ .debug_line    0x000066f5      0xc76 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
+ .debug_line    0x0000736b      0xafd ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
+ .debug_line    0x00007e68      0xc63 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
+ .debug_line    0x00008acb      0xeea ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
+ .debug_line    0x000099b5     0x145c ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o
+ .debug_line    0x0000ae11     0x3183 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.o
+ .debug_line    0x0000df94      0xb77 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.o
+ .debug_line    0x0000eb0b     0x11b9 ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_line    0x0000fcc4      0x6e9 ./Middlewares/Third_Party/FreeRTOS/Source/list.o
+ .debug_line    0x000103ad     0x146a ./Middlewares/Third_Party/FreeRTOS/Source/queue.o
+ .debug_line    0x00011817     0x1900 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .debug_line    0x00013117      0x796 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x000138ad      0x914 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
 .debug_str      0x00000000    0xf29f0
  .debug_str     0x00000000    0xe6d48 ./Core/Src/freertos.o

@@ -1,8 +1,8 @@
-../Core/shell/shell.c:29:6:shell_uart_receive_irq_cb	16	static,ignoring_inline_asm
-../Core/shell/shell.c:38:13:uart_read	16	static
-../Core/shell/shell.c:49:12:uart_write	16	static
-../Core/shell/shell.c:54:12:sh_help	32	static
-../Core/shell/shell.c:65:6:shell_init	16	static
-../Core/shell/shell.c:81:5:shell_add	24	static
-../Core/shell/shell.c:93:12:shell_exec	72	static
-../Core/shell/shell.c:127:5:shell_run	24	static
+../Core/shell/shell.c:27:6:shell_uart_receive_irq_cb	16	static,ignoring_inline_asm
+../Core/shell/shell.c:36:13:uart_read	16	static
+../Core/shell/shell.c:47:12:uart_write	16	static
+../Core/shell/shell.c:52:12:sh_help	32	static
+../Core/shell/shell.c:63:6:shell_init	16	static
+../Core/shell/shell.c:79:5:shell_add	24	static
+../Core/shell/shell.c:91:12:shell_exec	72	static
+../Core/shell/shell.c:125:5:shell_run	24	static

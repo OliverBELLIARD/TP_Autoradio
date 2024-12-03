@@ -106,7 +106,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == USART2)
 	{
-		shell_uart_receive_irq_cb();	// C'est la fonction qui donne le sémaphore!
+		shell_uart_receive_irq_cb();	// Function giving the semaphore!
 	}
 }
 
@@ -167,7 +167,7 @@ void task_LED (void * pvParameters) {
 	int duree = (int) pvParameters;
 
 #if (LOGS)
-	printf("%s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
 #endif
 	for (;;)
 	{
@@ -179,13 +179,16 @@ void task_LED (void * pvParameters) {
 void task_shell(void * unused)
 {
 #if (LOGS)
-	printf("%s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
 #endif
 
-	shell_init();
+	shell_init();	// Shell initialization
+
+	// Creation of all commands
 	shell_add('f', fonction, "Une fonction inutile");
 	shell_add('a', addition, "Effectue une somme");
 	shell_add('c', calcul, "Opération entre 2 nombres");
+
 	shell_run();	// boucle infinie
 }
 

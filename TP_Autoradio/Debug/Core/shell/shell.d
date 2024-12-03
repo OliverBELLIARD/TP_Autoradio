@@ -1,4 +1,4 @@
-Core/shell/shell.o: ../Core/shell/shell.c ../Core/shell/shell.h \
+Core/shell/shell.o: ../Core/shell/shell.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -43,8 +43,7 @@ Core/shell/shell.o: ../Core/shell/shell.c ../Core/shell/shell.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
- ../Core/Inc/gpio.h
-../Core/shell/shell.h:
+ ../Core/Inc/gpio.h ../Core/shell/shell.h
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -91,3 +90,4 @@ Core/shell/shell.o: ../Core/shell/shell.c ../Core/shell/shell.h \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:
 ../Core/Inc/gpio.h:
+../Core/shell/shell.h:
