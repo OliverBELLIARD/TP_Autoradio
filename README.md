@@ -6,5 +6,5 @@ TP de Synthèse – Autoradio
 
 ### Configuration
 
-1) La référence du GPIO Expander est la suivante : MCP23S17-E/S0. Nous avons ajouté sa datasheet dans notre documentation.
-2) 
+1. La référence du GPIO Expander est la suivante : MCP23S17-E/S0. Nous avons ajouté sa datasheet dans notre documentation.
+2. C'est le SPI3 qui est utilisé dans ce cas. 
