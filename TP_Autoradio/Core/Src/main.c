@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include "../shell/shell.h"
 #include "../shell/functions.h"
+#include "../drivers/driver_MCP23S17.h"
 
 /* USER CODE END Includes */
 
@@ -46,18 +47,6 @@
 #define TASK_SHELL_PRIORITY 3
 #define TASK_MCP23S17_PRIORITY 2
 #define DELAY_LED_TOGGLE 200
-
-// VU-Metre constants
-#define VU_WRITE 0
-#define VU_READ 1
-#define MCP23S17_IODIRA 0x00
-#define MCP23S17_IODIRB 0x01
-#define MCP23S17_OLATA  0x14
-#define MCP23S17_OLATB  0x15
-
-// Builds the VU-Metre control byte
-#define MCP23S17_CONTROL_BYTE(adress, RW)\
-		((0b0100 << 4) | (adress & 0b111 << 1) | RW)
 
 /* USER CODE END PD */
 
@@ -157,72 +146,6 @@ void task_shell(void * unused)
 	shell_run();	// boucle infinie
 }
 
-// Function to write to a register of MCP23S17 with error handling
-void MCP23S17_WriteRegister(uint8_t reg, uint8_t data) {
-	uint8_t control_byte = MCP23S17_CONTROL_BYTE(0b000, VU_WRITE); // Address = 0b000
-
-	uint8_t buffer[2] = {reg, data};
-	HAL_StatusTypeDef status;
-
-	// Assert chip select
-	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_RESET);
-
-	// Transmit control byte
-	status = HAL_SPI_Transmit(&hspi3, &control_byte, 1, HAL_MAX_DELAY);
-	if (status != HAL_OK) {
-		HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET); // Deassert chip select
-		printf("Error: Failed to transmit control byte (HAL_SPI_Transmit returned %d)\r\n", status);
-		Error_Handler(); // Handle the error
-		return; // Prevent further execution
-	}
-
-#if (LOGS)
-	printf("SPI3 control transmission status: %d\r\n", status);
-#endif
-
-	// Transmit register address and data
-	status = HAL_SPI_Transmit(&hspi3, buffer, 2, HAL_MAX_DELAY);
-	if (status != HAL_OK) {
-		HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET); // Deassert chip select
-		printf("Error: Failed to transmit register data (HAL_SPI_Transmit returned %d)\r\n", status);
-		Error_Handler(); // Handle the error
-		return; // Prevent further execution
-	}
-
-#if (LOGS)
-	printf("SPI3 data Ox%X transmission to register 0x%X status: %d\r\n", data, reg, status);
-#endif
-
-	// Deassert chip select
-	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
-}
-
-void MCP23S17_Init(void) {
-	// nRESET to base state
-	HAL_GPIO_WritePin(VU_nRESET_GPIO_Port, VU_nRESET_Pin, GPIO_PIN_SET);
-
-	// nCS to reset state
-	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
-
-	// Set all GPIOA and GPIOB pins as outputs
-	MCP23S17_WriteRegister(MCP23S17_IODIRA, 0x00); // GPA as output
-	MCP23S17_WriteRegister(MCP23S17_IODIRB, 0x00); // GPB as output
-}
-
-void MCP23S17_Set_LED(uint8_t led)
-{
-	if (led > 7)
-	{
-		MCP23S17_WriteRegister(MCP23S17_OLATB, ~(1 << led%8));
-		MCP23S17_WriteRegister(MCP23S17_OLATA, 0xFF); // All LEDs on GPIOA OFF
-	}
-	else
-	{
-		MCP23S17_WriteRegister(MCP23S17_OLATA, ~(1 << led));
-		MCP23S17_WriteRegister(MCP23S17_OLATB, 0xFF); // All LEDs on GPIOB OFF
-	}
-}
-
 void task_GPIO_expander (void * pvParameters) {
 	int delay = (int) pvParameters;
 	int toggle = 1;
@@ -234,12 +157,23 @@ void task_GPIO_expander (void * pvParameters) {
 
 	// Initialize MCP23S17 GPIO expander
 	MCP23S17_Init();
-	MCP23S17_WriteRegister(MCP23S17_OLATB, 0x00); // All LEDs on GPIOB OFF
-	MCP23S17_WriteRegister(MCP23S17_OLATA, 0x00); // All LEDs on GPIOA OFF
 
+	MCP23S17_Toggle_LED_id(5);
+	MCP23S17_Toggle_LED_id(5);
+	/* Test chenillard
 	for (;;)
 	{
-		/*
+		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
+		i++;
+
+		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
+	}
+	*/
+
+	/* Test all LEDs at once
+	for (;;)
+	{
+
 		if (toggle > 0)
 		{
 			MCP23S17_WriteRegister(MCP23S17_OLATA, 0xFF); // All LEDs on GPIOA ON
@@ -252,13 +186,10 @@ void task_GPIO_expander (void * pvParameters) {
 		}
 
 		toggle = -toggle;
-		*/
-
-		MCP23S17_Set_LED(i%16);
-		i++;
 
 		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
 	}
+	*/
 }
 
 /* USER CODE END 0 */
