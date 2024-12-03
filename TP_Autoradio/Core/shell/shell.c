@@ -4,15 +4,13 @@
  *  Created on: 7 juin 2019
  *      Author: Laurent Fiack
  */
+#include <stdio.h>
+#include "cmsis_os.h"
+#include "usart.h"
+#include "gpio.h"
 
 #include "shell.h"
 
-#include "cmsis_os.h"
-
-#include <stdio.h>
-
-#include "usart.h"
-#include "gpio.h"
 
 typedef struct{
 	char c;
