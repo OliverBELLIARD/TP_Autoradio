@@ -1,0 +1,4 @@
+../Core/drivers/SGTL5000.c:26:6:SGTL5000_ErrorHandler	1
+../Core/drivers/SGTL5000.c:38:6:SGTL5000_ReadRegister	2
+../Core/drivers/SGTL5000.c:54:6:SGTL5000_WriteRegister	2
+../Core/drivers/SGTL5000.c:69:6:SGTL5000_Init	2

@@ -32,6 +32,8 @@
 #include <stdlib.h>
 
 #include "../drivers/MCP23S17.h"
+#include "../drivers/SGTL5000.h"
+
 #include "../shell/shell.h"
 #include "../shell/functions.h"
 
@@ -51,9 +53,7 @@
 #define TASK_MCP23S17_PRIORITY 2
 #define DELAY_LED_TOGGLE 200
 
-#define SGTL5000_CHIP_ID 0x0000
-#define SGTL5000_CODEC 0x14
-
+#define SAI_BUFFER_LENGTH 1024
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -68,6 +68,8 @@ TaskHandle_t h_task_LED = NULL;
 TaskHandle_t h_task_shell = NULL;
 TaskHandle_t h_task_GPIOExpander = NULL;
 
+uint8_t rxSAI[SAI_BUFFER_LENGTH];
+uint8_t txSAI[SAI_BUFFER_LENGTH];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -166,7 +168,6 @@ void test_chenillard(int delay)
 	{
 		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
 		i++;
-
 		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en Dms
 	}
 }
@@ -177,21 +178,53 @@ void task_GPIO_expander (void * unused) {
 	printf("Task %s created\r\n", pcTaskGetName(xTaskGetCurrentTaskHandle()));
 #endif
 
-	// Initialize MCP23S17 GPIO expander
-	MCP23S17_Init();
-
-	/* VU-Metre test */
-	MCP23S17_VUMetre_L(30);
-	MCP23S17_VUMetre_R(50);
+	/* VU-Metre test *
+	MCP23S17_level_L(30);
+	MCP23S17_level_R(50);
+	 */
 
 	// Simple test of the array of leds with an animation
-	//test_chenillard(100);
+	test_chenillard(100);
 
 	for (;;)
 	{
 		vTaskDelay(1);  // Délai de duree en ms
 	}
 }
+
+///////////////////////////////////////////////////////////////////////
+// SAI
+/////////////////////////////////////////////////////////////////////
+#define TRIANGLE_SAMPLES 256 // Number of samples for the triangular waveform
+
+uint16_t triangleWave[TRIANGLE_SAMPLES];
+
+/**
+ * @brief Generates a triangular waveform.
+ * @param buffer: Pointer to the buffer to hold the waveform.
+ * @param length: Number of samples in the waveform.
+ * @param amplitude: Peak amplitude of the waveform.
+ */
+void GenerateTriangleWave(uint16_t* buffer, uint16_t length, uint16_t amplitude)
+{
+	uint16_t step = (2 * amplitude) / length;
+	uint16_t value = 0;
+	int8_t direction = 1;
+
+	for (uint16_t i = 0; i < length; i++) {
+		buffer[i] = value;
+		value += step * direction;
+
+		if (value >= amplitude) {
+			value = amplitude;
+			direction = -1; // Start decreasing
+		} else if (value <= 0) {
+			value = 0;
+			direction = 1; // Start increasing
+		}
+	}
+}
+
 
 /* USER CODE END 0 */
 
@@ -235,21 +268,20 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
 
-	uint8_t pData[16];
+	SGTL5000_Init();
+	// Initialize GPIO expander
+	MCP23S17_Init();
 
-	printf("Before I2C\r\n");
+	// Generate the triangular waveform
+	GenerateTriangleWave(triangleWave, TRIANGLE_SAMPLES, 0x7FFF); // 16-bit amplitude (0x7FFF)
 
-	for (int i = 0; i < 16; i++)
-		printf("0x%X\r\n", pData[i]);
+	// Start SAI DMA transmission
+	if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)triangleWave, TRIANGLE_SAMPLES) != HAL_OK) {
+		printf("Error: Failed to start SAI DMA transmission\r\n");
+		Error_Handler();
+	}
 
-	HAL_I2C_Mem_Read(&hi2c2, SGTL5000_CODEC, SGTL5000_CHIP_ID, 1, pData, 16, HAL_MAX_DELAY);
-
-	printf("After I2C\r\n");
-
-	for (int i = 0; i < 16; i++)
-		printf("0x%X\r\n", pData[i]);
-	//HAL_SAI_Receive_DMA();
-	//HAL_SAI_Transmit_DMA();
+	HAL_SAI_Receive_DMA(&hsai_BlockA2, rxSAI, SAI_BUFFER_LENGTH);
 
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");

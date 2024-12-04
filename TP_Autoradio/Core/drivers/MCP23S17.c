@@ -125,7 +125,7 @@ void MCP23S17_Set_LEDs(uint16_t leds)
 /*
  * @param level in percentage
  */
-void MCP23S17_VUMetre_R(int level)
+void MCP23S17_level_R(int level)
 {
 	if (level <= 100)
 	{
@@ -138,7 +138,7 @@ void MCP23S17_VUMetre_R(int level)
 /*
  * @param level in percentage
  */
-void MCP23S17_VUMetre_L(int level)
+void MCP23S17_level_L(int level)
 {
 	if (level <= 100)
 	{

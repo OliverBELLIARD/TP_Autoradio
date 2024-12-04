@@ -4,5 +4,5 @@
 ../Core/drivers/MCP23S17.c:87:6:MCP23S17_Set_LED_id	16	static
 ../Core/drivers/MCP23S17.c:103:6:MCP23S17_Toggle_LED_id	16	static
 ../Core/drivers/MCP23S17.c:117:6:MCP23S17_Set_LEDs	16	static
-../Core/drivers/MCP23S17.c:128:6:MCP23S17_VUMetre_R	16	static
-../Core/drivers/MCP23S17.c:141:6:MCP23S17_VUMetre_L	16	static
+../Core/drivers/MCP23S17.c:128:6:MCP23S17_level_R	16	static
+../Core/drivers/MCP23S17.c:141:6:MCP23S17_level_L	16	static
