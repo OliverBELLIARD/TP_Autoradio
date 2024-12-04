@@ -14,4 +14,24 @@ TP de Synthèse – Autoradio
 
 ### 2.2 Tests
 
-1. Faitere clignoter une ou plusieurs LED.
+Pour cette partie nous avons décidé de faire un chenillard en utilisant les 16 LEDs à notre disposition. Pour effectuer ce chenillard nous avons utilisé la connexion SPI3 pour allez contrôler notre GPIO Expander, celui-ci contrôlant directement nos LEDs.  
+
+Voici un aperçu de la fonction que nous avons réalisé à cet effet :  
+
+```C
+void test_chenillard(int delay)
+{
+	int i = 0;
+
+	for (;;)
+	{
+		MCP23S17_Set_LEDs(~(1 << i%8 | ((1 << i%8) << 8)));
+		i++;
+
+		vTaskDelay( delay / portTICK_PERIOD_MS );  // Délai de duree en ms
+	}
+}
+```
+
+### 2.3 Driver
+
