@@ -225,6 +225,25 @@ void GenerateTriangleWave(uint16_t* buffer, uint16_t length, uint16_t amplitude)
 	}
 }
 
+/**
+ * @brief SAI error callback.
+ * @param hsai: Pointer to the SAI handle.
+ */
+void HAL_SAI_ErrorCallback(SAI_HandleTypeDef *hsai)
+{
+    printf("Error: SAI encountered an error\r\n");
+
+    // Attempt to restart DMA transmission and reception
+    if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)triangleWave, TRIANGLE_SAMPLES) != HAL_OK) {
+        printf("Error: Failed to restart SAI DMA transmission\r\n");
+        Error_Handler();
+    }
+
+    if (HAL_SAI_Receive_DMA(&hsai_BlockA2, rxSAI, SAI_BUFFER_LENGTH) != HAL_OK) {
+        printf("Error: Failed to restart SAI DMA reception\r\n");
+        Error_Handler();
+    }
+}
 
 /* USER CODE END 0 */
 
@@ -266,12 +285,14 @@ int main(void)
 	MX_SPI3_Init();
 	MX_SAI2_Init();
 	/* USER CODE BEGIN 2 */
-	__HAL_SAI_ENABLE(&hsai_BlockA2);
-
-	SGTL5000_Init();
 	// Initialize GPIO expander
 	MCP23S17_Init();
 
+	__HAL_SAI_ENABLE(&hsai_BlockA2);
+
+	SGTL5000_Init();
+
+	printf("Triangle Wave generation\r\n");
 	// Generate the triangular waveform
 	GenerateTriangleWave(triangleWave, TRIANGLE_SAMPLES, 0x7FFF); // 16-bit amplitude (0x7FFF)
 
@@ -281,7 +302,13 @@ int main(void)
 		Error_Handler();
 	}
 
-	HAL_SAI_Receive_DMA(&hsai_BlockA2, rxSAI, SAI_BUFFER_LENGTH);
+	/*
+	// Start SAI DMA reception
+	if (HAL_SAI_Receive_DMA(&hsai_BlockA2, rxSAI, SAI_BUFFER_LENGTH) != HAL_OK) {
+		printf("Error: Failed to start SAI DMA reception\r\n");
+		Error_Handler();
+	}
+	*/
 
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");
