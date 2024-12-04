@@ -8,7 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
-#include "../drivers/driver_MCP23S17.h"
+
+#include "../drivers/MCP23S17.h"
 
 
 int fonction(int argc, char ** argv)
@@ -72,6 +73,16 @@ int GPIOExpander_toggle_LED(int argc, char ** argv)
 		{
 			MCP23S17_Toggle_LED_id(atoi(argv[i]));
 		}
+	}
+
+	return 0;
+}
+
+int GPIOExpander_set_LED(int argc, char ** argv)
+{
+	if (argc > 1)
+	{
+		MCP23S17_Set_LED_id(atoi(argv[1]));
 	}
 
 	return 0;

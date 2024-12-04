@@ -1,0 +1,8 @@
+../Core/drivers/MCP23S17.c:19:6:MCP23S17_WriteRegister	3
+../Core/drivers/MCP23S17.c:59:6:MCP23S17_Update_LEDs	1
+../Core/drivers/MCP23S17.c:65:6:MCP23S17_Init	1
+../Core/drivers/MCP23S17.c:87:6:MCP23S17_Set_LED_id	2
+../Core/drivers/MCP23S17.c:103:6:MCP23S17_Toggle_LED_id	2
+../Core/drivers/MCP23S17.c:117:6:MCP23S17_Set_LEDs	1
+../Core/drivers/MCP23S17.c:128:6:MCP23S17_VUMetre_R	2
+../Core/drivers/MCP23S17.c:141:6:MCP23S17_VUMetre_L	2

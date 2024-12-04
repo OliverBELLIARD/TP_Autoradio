@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/drivers/driver_MCP23S17.c 
+../Core/drivers/MCP23S17.c \
+../Core/drivers/SGTL5000.c 
 
 OBJS += \
-./Core/drivers/driver_MCP23S17.o 
+./Core/drivers/MCP23S17.o \
+./Core/drivers/SGTL5000.o 
 
 C_DEPS += \
-./Core/drivers/driver_MCP23S17.d 
+./Core/drivers/MCP23S17.d \
+./Core/drivers/SGTL5000.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/drivers/%.o Core/drivers/%.su Core/drivers/%.cyclo: ../Core/drivers/%.c Cor
 clean: clean-Core-2f-drivers
 
 clean-Core-2f-drivers:
-	-$(RM) ./Core/drivers/driver_MCP23S17.cyclo ./Core/drivers/driver_MCP23S17.d ./Core/drivers/driver_MCP23S17.o ./Core/drivers/driver_MCP23S17.su
+	-$(RM) ./Core/drivers/MCP23S17.cyclo ./Core/drivers/MCP23S17.d ./Core/drivers/MCP23S17.o ./Core/drivers/MCP23S17.su ./Core/drivers/SGTL5000.cyclo ./Core/drivers/SGTL5000.d ./Core/drivers/SGTL5000.o ./Core/drivers/SGTL5000.su
 
 .PHONY: clean-Core-2f-drivers
 

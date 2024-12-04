@@ -5,8 +5,10 @@
  *      Author: oliver
  */
 
-#ifndef DRIVERS_DRIVER_MCP23S17_H_
-#define DRIVERS_DRIVER_MCP23S17_H_
+#ifndef DRIVERS_MCP23S17_H_
+#define DRIVERS_MCP23S17_H_
+
+#include <stdint.h>
 
 #define MCP23S17_CONTROL_ADDR 0b000
 #define MCP23S17_IODIRA  0x00
@@ -31,12 +33,13 @@ typedef enum
 } MCP23S17_Mode;
 
 
-void MCP23S17_WriteRegister(uint8_t, uint8_t);
-void MCP23S17_Init();
-void MCP23S17_Set_LED_id(uint8_t);
-void MCP23S17_Toggle_LED_id(uint8_t);
-void MCP23S17_Set_LEDs(uint16_t);
-void MCP23S17_VUMetre_R(int);
-void MCP23S17_VUMetre_L(int);
+void MCP23S17_WriteRegister(uint8_t reg, uint8_t data);
+void MCP23S17_Init(void);
+void MCP23S17_Set_LED_id(uint8_t led);
+void MCP23S17_Toggle_LED_id(uint8_t led);
+void MCP23S17_Set_LEDs(uint16_t leds);
+void MCP23S17_Update_LEDs(void);
+void MCP23S17_VUMetre_R(int level);
+void MCP23S17_VUMetre_L(int level);
 
-#endif /* DRIVERS_DRIVER_MCP23S17_H_ */
+#endif /* DRIVERS_MCP23S17_H_ */

@@ -1,7 +1,8 @@
-#include <stdlib.h>
+#include "MCP23S17.h"
+
 #include <stdio.h>
+#include <stdlib.h>
 #include "spi.h"
-#include "driver_MCP23S17.h"
 
 #define LOGS 0
 
