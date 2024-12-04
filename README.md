@@ -195,5 +195,11 @@ void MCP23S17_VUMetre_L(int level)
 
 ### 3.1 Configurations préalables
 
-Le CODEC utilisant deux protocoles de communication avec l'I2C pour la configuration et l'I2S pour le transfert des échantillons audios, nous allons nous concentrer dans un premier temps sur la partie I2C.
+Le CODEC utilisant deux protocoles de communication avec l'I2C pour la configuration et l'I2S pour le transfert des échantillons audio, nous allons nous concentrer dans un premier temps sur la partie I2C.
+
+1. Nous utilisons la configuration suivante pour l'I2C :
+
+![image](https://github.com/user-attachments/assets/5cdb2431-bb52-45b3-840c-dad6e88ae2e7)
+
+PB10 et PB11 sont la configuration  de base de I2C2 
 
