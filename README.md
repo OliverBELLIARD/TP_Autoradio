@@ -201,5 +201,11 @@ Le CODEC utilisant deux protocoles de communication avec l'I2C pour la configura
 
 ![image](https://github.com/user-attachments/assets/5cdb2431-bb52-45b3-840c-dad6e88ae2e7)
 
-PB10 et PB11 sont la configuration  de base de I2C2 
+PB10 et PB11 sont la configuration  de base de l'I2C2.
+Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle de l'I2S.
 
+Ce protocole ne se trouve non plus dans connectivity mais dans multimedia. On met le SAI A en Master et SAI B en Synchronous Slave et on utilise le protocole I2S pour ces deux là.
+On active les interruptions pour pouvoir configurer le DMA de SAI A et B avec le mode circulaire.
+On part ensuite activer l'horloge MCLK et on n'oublie pas d'alimenter notre CODEC avec une horloge, sans quoi la communication I2C ne fonctionnera pas.
+
+### 3.2 Configuration du CODEC par l'I2C
