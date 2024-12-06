@@ -1,4 +1,4 @@
-../Core/drivers/SGTL5000.c:26:6:SGTL5000_ErrorHandler	16	static
-../Core/drivers/SGTL5000.c:38:6:SGTL5000_ReadRegister	40	static
-../Core/drivers/SGTL5000.c:54:6:SGTL5000_WriteRegister	40	static
-../Core/drivers/SGTL5000.c:69:6:SGTL5000_Init	16	static
+../Core/drivers/SGTL5000.c:27:6:SGTL5000_ErrorHandler	16	static
+../Core/drivers/SGTL5000.c:39:6:SGTL5000_i2c_ReadRegister	40	static
+../Core/drivers/SGTL5000.c:55:6:SGTL5000_i2c_WriteRegister	40	static
+../Core/drivers/SGTL5000.c:70:6:SGTL5000_Init	16	static
