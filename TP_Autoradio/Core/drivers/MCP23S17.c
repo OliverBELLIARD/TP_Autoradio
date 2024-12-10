@@ -127,6 +127,9 @@ void MCP23S17_Set_LEDs(uint16_t leds)
  */
 void MCP23S17_level_R(int level)
 {
+	if (level > 100) level = 100;
+	if (level <= 0) level = 0;
+
 	if (level <= 100)
 	{
 		hMCP23S17.GPA = 0xFF & (0x00FF << (int)(8*level/100));
@@ -140,6 +143,9 @@ void MCP23S17_level_R(int level)
  */
 void MCP23S17_level_L(int level)
 {
+	if (level > 100) level = 100;
+	if (level <= 0) level = 0;
+
 	if (level <= 100)
 	{
 		hMCP23S17.GPB = 0xFF & (0x00FF << (int)(8*level/100));

@@ -30,6 +30,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "../drivers/MCP23S17.h"
 #include "../drivers/SGTL5000.h"
@@ -53,7 +54,7 @@
 #define TASK_MCP23S17_PRIORITY 2
 #define DELAY_LED_TOGGLE 200
 
-#define SAI_BUFFER_LENGTH 1024
+#define SAI_BUFFER_LENGTH (512)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -70,6 +71,8 @@ TaskHandle_t h_task_GPIOExpander = NULL;
 
 uint8_t rxSAI[SAI_BUFFER_LENGTH];
 uint8_t txSAI[SAI_BUFFER_LENGTH];
+float txSAI_volume;
+int VU_level;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -179,25 +182,37 @@ void task_GPIO_expander (void * unused) {
 #endif
 
 	/* VU-Metre test *
-	MCP23S17_level_L(30);
+	MCP23S17_level_L(70);
 	MCP23S17_level_R(50);
-	 */
+	*/
 
 	// Simple test of the array of leds with an animation
-	test_chenillard(100);
+	//test_chenillard(100);
 
 	for (;;)
 	{
-		vTaskDelay(1);  // Délai de duree en ms
+		// VU-Metre
+		txSAI_volume = 0;
+		for (int i=0; i<SAI_BUFFER_LENGTH; i++)
+		{
+			txSAI_volume += txSAI[i];
+		}
+		txSAI_volume = log10f((float)(txSAI_volume)/(SAI_BUFFER_LENGTH*0x7FFF));
+
+		// 0 dB at 70%
+		if (VU_level < txSAI_volume+70) VU_level += 1;
+		if (VU_level > txSAI_volume+70) VU_level -= 1;
+
+		MCP23S17_level_L(VU_level);
+		MCP23S17_level_R(VU_level);
+
+		vTaskDelay( 4/portTICK_PERIOD_MS );  // 1 ms delay
 	}
 }
 
 ///////////////////////////////////////////////////////////////////////
 // SAI
 /////////////////////////////////////////////////////////////////////
-#define TRIANGLE_SAMPLES 256 // Number of samples for the triangular waveform
-
-uint16_t triangleWave[TRIANGLE_SAMPLES];
 
 /**
  * @brief Generates a triangular waveform.
@@ -205,7 +220,7 @@ uint16_t triangleWave[TRIANGLE_SAMPLES];
  * @param length: Number of samples in the waveform.
  * @param amplitude: Peak amplitude of the waveform.
  */
-void GenerateTriangleWave(uint16_t* buffer, uint16_t length, uint16_t amplitude)
+void GenerateTriangleWave(uint8_t* buffer, uint16_t length, uint16_t amplitude)
 {
 	uint16_t step = (2 * amplitude) / length;
 	uint16_t value = 0;
@@ -234,7 +249,7 @@ void HAL_SAI_ErrorCallback(SAI_HandleTypeDef *hsai)
     printf("Error: SAI encountered an error\r\n");
 
     // Attempt to restart DMA transmission and reception
-    if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)triangleWave, TRIANGLE_SAMPLES) != HAL_OK) {
+    if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)txSAI, SAI_BUFFER_LENGTH) != HAL_OK) {
         printf("Error: Failed to restart SAI DMA transmission\r\n");
         Error_Handler();
     }
@@ -287,70 +302,70 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	// Initialize GPIO expander
 	MCP23S17_Init();
+	__HAL_RCC_SAI2_CLK_ENABLE();
+	__HAL_RCC_DMA2_CLK_ENABLE();
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
 	__HAL_SAI_ENABLE(&hsai_BlockB2);
 	SGTL5000_Init();
 
 	// Generate the triangular waveform
-	GenerateTriangleWave(triangleWave, TRIANGLE_SAMPLES, 0x7FFF); // 16-bit amplitude (0x7FFF)
+	GenerateTriangleWave(txSAI, SAI_BUFFER_LENGTH, 0x7FFF); // 16-bit amplitude (0x7FFF)
 	printf("Triangle Wave generation\r\n");
 
 	// Start SAI DMA transmission
-	if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)triangleWave, TRIANGLE_SAMPLES) != HAL_OK) {
+	if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)txSAI, SAI_BUFFER_LENGTH) != HAL_OK) {
 		printf("Error: Failed to start SAI DMA transmission\r\n");
 		Error_Handler();
 	}
 
-	/*
 	// Start SAI DMA reception
 	if (HAL_SAI_Receive_DMA(&hsai_BlockA2, rxSAI, SAI_BUFFER_LENGTH) != HAL_OK) {
 		printf("Error: Failed to start SAI DMA reception\r\n");
 		Error_Handler();
 	}
-	*/
 
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");
-//
-//	// Create the task, storing the handle.
-//	Error_Handler_xTaskCreate(
-//			xTaskCreate(task_GPIO_expander, // Function that implements the task.
-//					"GPIO_expander", // Text name for the task.
-//					STACK_DEPTH, // Stack size in words, not bytes.
-//					(void *) 500, // 500 ms
-//					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
-//					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
-//
-//	// Turn on LED2 (Green)
-//	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-//
-//	// Create the task, storing the handle.
-//	Error_Handler_xTaskCreate(
-//			xTaskCreate(task_LED, // Function that implements the task.
-//					"LED LD2", // Text name for the task.
-//					STACK_DEPTH, // Stack size in words, not bytes.
-//					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
-//					1,// Priority at which the task is created.
-//					&h_task_LED)); // Used to pass out the created task's handle.
-//	// Shell task
-//	Error_Handler_xTaskCreate(
-//			xTaskCreate(task_shell,
-//					"Shell",
-//					STACK_DEPTH,
-//					NULL,
-//					TASK_SHELL_PRIORITY,
-//					&h_task_shell));
-//
-//	// OS Start
-//	vTaskStartScheduler();
-//
-//	/* USER CODE END 2 */
-//
-//	/* Call init function for freertos objects (in cmsis_os2.c) */
-//	MX_FREERTOS_Init();
-//
-//	/* Start scheduler */
-//	osKernelStart();
+
+	// Create the task, storing the handle.
+	Error_Handler_xTaskCreate(
+			xTaskCreate(task_GPIO_expander, // Function that implements the task.
+					"GPIO_expander", // Text name for the task.
+					STACK_DEPTH, // Stack size in words, not bytes.
+					(void *) 500, // 500 ms
+					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
+					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
+
+	// Turn on LED2 (Green)
+	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+	// Create the task, storing the handle.
+	Error_Handler_xTaskCreate(
+			xTaskCreate(task_LED, // Function that implements the task.
+					"LED LD2", // Text name for the task.
+					STACK_DEPTH, // Stack size in words, not bytes.
+					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
+					1,// Priority at which the task is created.
+					&h_task_LED)); // Used to pass out the created task's handle.
+	// Shell task
+	Error_Handler_xTaskCreate(
+			xTaskCreate(task_shell,
+					"Shell",
+					STACK_DEPTH,
+					NULL,
+					TASK_SHELL_PRIORITY,
+					&h_task_shell));
+
+	// OS Start
+	vTaskStartScheduler();
+
+	/* USER CODE END 2 */
+
+	/* Call init function for freertos objects (in cmsis_os2.c) */
+	MX_FREERTOS_Init();
+
+	/* Start scheduler */
+	osKernelStart();
 
 	/* We should never get here as control is now taken by the scheduler */
 
