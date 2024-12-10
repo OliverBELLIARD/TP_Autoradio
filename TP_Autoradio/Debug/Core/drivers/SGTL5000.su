@@ -1,4 +1,5 @@
-../Core/drivers/SGTL5000.c:27:6:SGTL5000_ErrorHandler	16	static
-../Core/drivers/SGTL5000.c:39:6:SGTL5000_i2c_ReadRegister	40	static
-../Core/drivers/SGTL5000.c:55:6:SGTL5000_i2c_WriteRegister	40	static
-../Core/drivers/SGTL5000.c:70:6:SGTL5000_Init	16	static
+../Drivers/CMSIS/Include/core_cm4.h:1933:34:__NVIC_SystemReset	4	static,ignoring_inline_asm
+../Core/drivers/SGTL5000.c:28:6:SGTL5000_ErrorHandler	16	static
+../Core/drivers/SGTL5000.c:41:6:SGTL5000_i2c_ReadRegister	40	static
+../Core/drivers/SGTL5000.c:57:6:SGTL5000_i2c_WriteRegister	40	static
+../Core/drivers/SGTL5000.c:101:6:SGTL5000_Init	16	static

@@ -287,14 +287,13 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	// Initialize GPIO expander
 	MCP23S17_Init();
-
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
-
+	__HAL_SAI_ENABLE(&hsai_BlockB2);
 	SGTL5000_Init();
 
-	printf("Triangle Wave generation\r\n");
 	// Generate the triangular waveform
 	GenerateTriangleWave(triangleWave, TRIANGLE_SAMPLES, 0x7FFF); // 16-bit amplitude (0x7FFF)
+	printf("Triangle Wave generation\r\n");
 
 	// Start SAI DMA transmission
 	if (HAL_SAI_Transmit_DMA(&hsai_BlockA2, (uint8_t*)triangleWave, TRIANGLE_SAMPLES) != HAL_OK) {
@@ -312,46 +311,46 @@ int main(void)
 
 	// Test printf
 	printf("******* TP Autoradio *******\r\n");
-
-	// Create the task, storing the handle.
-	Error_Handler_xTaskCreate(
-			xTaskCreate(task_GPIO_expander, // Function that implements the task.
-					"GPIO_expander", // Text name for the task.
-					STACK_DEPTH, // Stack size in words, not bytes.
-					(void *) 500, // 500 ms
-					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
-					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
-
-	// Turn on LED2 (Green)
-	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-	// Create the task, storing the handle.
-	Error_Handler_xTaskCreate(
-			xTaskCreate(task_LED, // Function that implements the task.
-					"LED LD2", // Text name for the task.
-					STACK_DEPTH, // Stack size in words, not bytes.
-					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
-					1,// Priority at which the task is created.
-					&h_task_LED)); // Used to pass out the created task's handle.
-	// Shell task
-	Error_Handler_xTaskCreate(
-			xTaskCreate(task_shell,
-					"Shell",
-					STACK_DEPTH,
-					NULL,
-					TASK_SHELL_PRIORITY,
-					&h_task_shell));
-
-	// OS Start
-	vTaskStartScheduler();
-
-	/* USER CODE END 2 */
-
-	/* Call init function for freertos objects (in cmsis_os2.c) */
-	MX_FREERTOS_Init();
-
-	/* Start scheduler */
-	osKernelStart();
+//
+//	// Create the task, storing the handle.
+//	Error_Handler_xTaskCreate(
+//			xTaskCreate(task_GPIO_expander, // Function that implements the task.
+//					"GPIO_expander", // Text name for the task.
+//					STACK_DEPTH, // Stack size in words, not bytes.
+//					(void *) 500, // 500 ms
+//					TASK_MCP23S17_PRIORITY, // Priority at which the task is created.
+//					&h_task_GPIOExpander)); // Used to pass out the created task's handle.
+//
+//	// Turn on LED2 (Green)
+//	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+//
+//	// Create the task, storing the handle.
+//	Error_Handler_xTaskCreate(
+//			xTaskCreate(task_LED, // Function that implements the task.
+//					"LED LD2", // Text name for the task.
+//					STACK_DEPTH, // Stack size in words, not bytes.
+//					(void *) DELAY_LED_TOGGLE, // Parameter passed into the task.
+//					1,// Priority at which the task is created.
+//					&h_task_LED)); // Used to pass out the created task's handle.
+//	// Shell task
+//	Error_Handler_xTaskCreate(
+//			xTaskCreate(task_shell,
+//					"Shell",
+//					STACK_DEPTH,
+//					NULL,
+//					TASK_SHELL_PRIORITY,
+//					&h_task_shell));
+//
+//	// OS Start
+//	vTaskStartScheduler();
+//
+//	/* USER CODE END 2 */
+//
+//	/* Call init function for freertos objects (in cmsis_os2.c) */
+//	MX_FREERTOS_Init();
+//
+//	/* Start scheduler */
+//	osKernelStart();
 
 	/* We should never get here as control is now taken by the scheduler */
 
